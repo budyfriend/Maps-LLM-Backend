@@ -223,7 +223,7 @@ app.get('/api/directions', async (req, res) => {
   try {
     const { origin, destination_place_id } = req.query;
 
-    const cacheKey = `place:${destination_place_id}`;
+    const cacheKey = `directions:${destination_place_id}`;
     const cached = cache.get(cacheKey);
     if (cached) return res.json(cached);
 
