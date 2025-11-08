@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Maps LLM Frontend</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap (optional, for styling) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: "Inter", sans-serif;
+        }
+
+        .container {
+            margin-top: 40px;
+            max-width: 800px;
+        }
+
+        .card {
+            margin-bottom: 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">🧠 Local LLM + Google Maps Search</h2>
+
+        <!-- Search form -->
+        <div class="input-group mb-3">
+            <input type="text" id="prompt" class="form-control" placeholder="Example: Find nearby sushi restaurants">
+            <button id="searchBtn" class="btn btn-primary">Search</button>
+        </div>
+
+        <div id="loading" class="text-center" style="display:none;">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Processing your query...</p>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:3001/api";
+
+        $(document).ready(function () {
+            $("#searchBtn").click(function () {
+                const prompt = $("#prompt").val().trim();
+                if (!prompt) return alert("Please enter a search query");
+
+                $("#results").empty();
+                $("#loading").show();
+
+                // Get user's current location
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (pos) => {
+                            const user_location = {
+                                lat: pos.coords.latitude,
+                                lng: pos.coords.longitude
+                            };
+
+                            $.ajax({
+                                url: `${API_BASE}/search`,
+                                method: "POST",
+                                contentType: "application/json",
+                                data: JSON.stringify({ prompt, user_location }),
+                                success: function (data) {
+                                    $("#loading").hide();
+                                    renderResults(data.places);
+                                },
+                                error: function (xhr, textStatus, error) {
+                                    $("#loading").hide();
+                                    console.log(xhr.responseText);
+                                    console.log(xhr.statusText);
+                                    console.log(textStatus);
+                                    console.log(error);
+                                    alert("Error fetching results");
+                                }
+                            });
+                        },
+                        () => alert("Unable to access location.")
+                    );
+                } else {
+                    alert("Geolocation not supported by this browser.");
+                }
+            });
+        });
+
+        // Render result cards
+        function renderResults(places) {
+            if (!places || places.length === 0) {
+                $("#results").html("<p class='text-center text-muted'>No places found.</p>");
+                return;
+            }
+
+            places.forEach(place => {
+                const card = `
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${place.name}</h5>
+              <p class="card-text">${place.formatted_address || "No address available"}</p>
+              <p>⭐ ${place.rating || "N/A"}</p>
+              <button class="btn btn-outline-primary me-2" onclick="viewDetails('${place.place_id}')">View Details</button>
+              <button class="btn btn-success" onclick="openDirections('${place.place_id}')">Directions</button>
+            </div>
+          </div>`;
+                $("#results").append(card);
+            });
+        }
+
+        // Get place details
+        function viewDetails(placeId) {
+            $.ajax({
+                url: `${API_BASE}/place/${placeId}`,
+                method: "GET",
+                success: function (data) {
+                    const info = data.result;
+                    alert(`📍 ${info.name}\nAddress: ${info.formatted_address}\nPhone: ${info.formatted_phone_number || "N/A"}\nRating: ${info.rating || "N/A"}`);
+                },
+                error: function () {
+                    alert("Failed to load place details");
+                }
+            });
+        }
+
+        // Get directions
+        function openDirections(placeId) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const origin = `${pos.coords.latitude},${pos.coords.longitude}`;
+                    $.ajax({
+                        url: `${API_BASE}/directions`,
+                        method: "GET",
+                        data: { origin, destination_place_id: placeId },
+                        success: function (data) {
+                            window.open(data.directions_url, "_blank");
+                        },
+                        error: function () {
+                            alert("Failed to load directions");
+                        }
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -2,13 +2,18 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const NodeCache = require('node-cache');
-const helmet = require('helmet');
 
 const app = express();
 app.use(express.json());
-app.use(helmet());
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"]
+}));
 
 const CACHE_TTL = parseInt(process.env.CACHE_TTL_SECONDS || '300', 10);
 const cache = new NodeCache({ stdTTL: CACHE_TTL });
@@ -92,14 +97,14 @@ User prompt: """${prompt}"""
       place_type: null,
       keywords: prompt,
       radius_m: 3000,
-      limit: 5,
+      limit: 50,
       location: fallbackLocation
     };
   }
 }
 
 // Helper: call Google Places Nearby Search (or Text Search if keywords only)
-async function searchPlaces({ location, radius_m = 3000, place_type, keywords, limit = 5 }) {
+async function searchPlaces({ location, radius_m = 3000, place_type, keywords, limit = 50 }) {
   // Build a cache key
   const cacheKey = `places:${location.lat},${location.lng}:${radius_m}:${place_type}:${keywords}:${limit}`;
   const cached = cache.get(cacheKey);
@@ -122,16 +127,22 @@ async function searchPlaces({ location, radius_m = 3000, place_type, keywords, l
 
   const results = (resp.data && resp.data.results) ? resp.data.results.slice(0, limit) : [];
   // map to a light object
-  const mapped = results.map(p => ({
-    place_id: p.place_id,
-    name: p.name,
-    rating: p.rating,
-    user_ratings_total: p.user_ratings_total,
-    vicinity: p.vicinity || p.formatted_address,
-    location: p.geometry && p.geometry.location,
-    maps_url: `https://www.google.com/maps/search/?api=1&query=place_id:${p.place_id}`,
-    directions_url: `https://www.google.com/maps/dir/?api=1&destination=place_id:${p.place_id}`
-  }));
+  const mapped = results.map(p => {
+
+    let map = {
+      place_id: p.place_id,
+      name: p.name,
+      rating: p.rating,
+      user_ratings_total: p.user_ratings_total,
+      vicinity: p.vicinity || p.formatted_address,
+      location: p.geometry && p.geometry.location,
+      maps_url: `https://www.google.com/maps/search/?api=1&query=place_id:${p.place_id}`,
+    };
+
+    map.directions_url = `https://www.google.com/maps/dir/${location.lat},${location.lng}/${map.location.lat},${map.location.lng}`;
+
+    return map;
+  });
 
   cache.set(cacheKey, mapped);
   return mapped;
@@ -155,7 +166,7 @@ app.post('/api/search', async (req, res) => {
 
     // Basic validation / defaults
     parsed.radius_m = parsed.radius_m || 3000;
-    parsed.limit = parsed.limit || 5;
+    parsed.limit = parsed.limit || 50;
     parsed.location = parsed.location || fallbackLocation;
 
     if (parsed.intent === 'directions' && parsed.destination_place_id) {
@@ -211,12 +222,26 @@ app.get('/api/place/:placeId', async (req, res) => {
 app.get('/api/directions', async (req, res) => {
   try {
     const { origin, destination_place_id } = req.query;
+
+    const cacheKey = `place:${destination_place_id}`;
+    const cached = cache.get(cacheKey);
+    if (cached) return res.json(cached);
+
+    const params = new URLSearchParams({
+      key: mapsKey,
+      place_id: destination_place_id,
+      fields: 'geometry'
+    });
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?${params.toString()}`;
+    const r = await axios.get(url);
+    const location = r.data.result.geometry.location;
+
     if (!origin || !destination_place_id) {
       return res.status(400).json({ error: 'origin and destination_place_id required' });
     }
     const [lat, lng] = origin.split(',');
     // we simply return Google Maps web directions link so client can open/embed
-    const directionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=place_id:${destination_place_id}`;
+    const directionsUrl = `https://www.google.com/maps/dir/${lat},${lng}/${location.lat},${location.lng}`;
     res.json({ directions_url: directionsUrl });
   } catch (err) {
     res.status(500).json({ error: 'directions_error' });

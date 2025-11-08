@@ -108,54 +108,93 @@ curl -X POST http://localhost:3001/api/search   -H "Content-Type: application/js
 {
     "parsed": {
         "intent": "find",
-        "keywords": "sushi restaurant",
         "place_type": "restaurant",
+        "keywords": "sushi restaurant nearby",
+        "radius_m": 3000,
+        "limit": 50,
         "location": {
             "lat": -6.2,
             "lng": 106.816666
-        },
-        "radius_m": 3000,
-        "limit": 5
+        }
     },
     "places": [
         {
-            "place_id": "ChIJzyG3DAjzaS4R4xaAMSNP_W8",
-            "name": "Kohai Sushi Bar",
-            "rating": 4.8,
-            "user_ratings_total": 932,
-            "vicinity": "14, Jl. Perintis No.16, RT.14/RW.5, East Kuningan, South Jakarta City",
+            "place_id": "ChIJm_mBpuzxaS4RFi-v_15ufZ0",
+            "name": "Morimoto Jakarta",
+            "rating": 4.9,
+            "user_ratings_total": 646,
+            "vicinity": "District 8, SCBD, Lot 28, South Jakarta City",
             "location": {
-                "lat": -6.229050000000001,
-                "lng": 106.8230279
+                "lat": -6.227295300000001,
+                "lng": 106.8064327
             },
-            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJzyG3DAjzaS4R4xaAMSNP_W8",
-            "directions_url": "https://www.google.com/maps/dir/?api=1&destination=place_id:ChIJzyG3DAjzaS4R4xaAMSNP_W8"
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJm_mBpuzxaS4RFi-v_15ufZ0",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.227295300000001,106.8064327"
         },
         {
             "place_id": "ChIJ3fpFb4r1aS4RqVlIvbiCuFE",
             "name": "Sushi Toku Menteng",
             "rating": 4.7,
-            "user_ratings_total": 673,
+            "user_ratings_total": 677,
             "vicinity": "Jl. Imam Bonjol No.32, RT.2/RW.5, Menteng, Kota Jakarta Pusat",
             "location": {
                 "lat": -6.1991948,
                 "lng": 106.8280283
             },
             "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJ3fpFb4r1aS4RqVlIvbiCuFE",
-            "directions_url": "https://www.google.com/maps/dir/?api=1&destination=place_id:ChIJ3fpFb4r1aS4RqVlIvbiCuFE"
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1991948,106.8280283"
         },
         {
-            "place_id": "ChIJWzUS5EkDai4RfZKSyL3JnvU",
-            "name": "OKINAWA SUSHI CENTRAL PARK",
-            "rating": 5,
-            "user_ratings_total": 9391,
-            "vicinity": "Central Park Mall, No.Kav. 28, Letjen S. Parman, South Tanjung Duren, West Jakarta City",
+            "place_id": "ChIJ11scZT_3aS4RDA17GWoP7Fs",
+            "name": "Tazawa Izakaya",
+            "rating": 4.8,
+            "user_ratings_total": 449,
+            "vicinity": "Senayan Park, Jl. Gerbang Pemuda Senayan Park Mall No.3 Lower Ground Unit, RT.1/RW.3, Gelora, Kota Jakarta Pusat",
             "location": {
-                "lat": -6.1780596,
-                "lng": 106.7909298
+                "lat": -6.2124964,
+                "lng": 106.8049368
             },
-            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJWzUS5EkDai4RfZKSyL3JnvU",
-            "directions_url": "https://www.google.com/maps/dir/?api=1&destination=place_id:ChIJWzUS5EkDai4RfZKSyL3JnvU"
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJ11scZT_3aS4RDA17GWoP7Fs",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2124964,106.8049368"
+        },
+        {
+            "place_id": "ChIJMWYWVLT2aS4RFCIdHdxDb3o",
+            "name": "Edogin",
+            "rating": 4.6,
+            "user_ratings_total": 1259,
+            "vicinity": "Jl. Asia Afrika, Senayan, Kota Jakarta Pusat",
+            "location": {
+                "lat": -6.2151383,
+                "lng": 106.7970056
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJMWYWVLT2aS4RFCIdHdxDb3o",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2151383,106.7970056"
+        },
+        {
+            "place_id": "ChIJaxrhifn1aS4RmwVcTBWxRjk",
+            "name": "Gion Sushi | Citywalk Sudirman",
+            "rating": 4.8,
+            "user_ratings_total": 245,
+            "vicinity": "Citylofts Sudirman, Jl. K.H. Mas Mansyur No.121, RT.10/RW.11, Karet Tengsin, Kota Jakarta Pusat",
+            "location": {
+                "lat": -6.2090203,
+                "lng": 106.8181224
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJaxrhifn1aS4RmwVcTBWxRjk",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2090203,106.8181224"
+        },
+        {
+            "place_id": "ChIJD32mBIj1aS4RJ_MALCXa5DE",
+            "name": "Aomori Shokudo Kuningan - Japanese Restaurant",
+            "rating": 4.7,
+            "user_ratings_total": 666,
+            "vicinity": "Jl. Karbela No.1, Kuningan, Village, Kota Jakarta Selatan",
+            "location": {
+                "lat": -6.2149131,
+                "lng": 106.8282482
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJD32mBIj1aS4RJ_MALCXa5DE",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2149131,106.8282482"
         },
         {
             "place_id": "ChIJV_ff9PT1aS4RN7GFZAWGMmU",
@@ -168,20 +207,176 @@ curl -X POST http://localhost:3001/api/search   -H "Content-Type: application/js
                 "lng": 106.823795
             },
             "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJV_ff9PT1aS4RN7GFZAWGMmU",
-            "directions_url": "https://www.google.com/maps/dir/?api=1&destination=place_id:ChIJV_ff9PT1aS4RN7GFZAWGMmU"
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1874207,106.823795"
         },
         {
-            "place_id": "ChIJUcOVFQD1aS4RR_Ih9qUWUvw",
-            "name": "Sushi Hiro Menteng Jakarta Pusat",
-            "rating": 4.7,
-            "user_ratings_total": 685,
-            "vicinity": "Jl. HOS. Cokroaminoto No.63, RT.003/RW.9, Gondangdia, Kota Jakarta Pusat",
+            "place_id": "ChIJUUfD-r31aS4RpjUzDCMEcW4",
+            "name": "Kintaro Sushi PI (Plaza Indonesia)",
+            "rating": 4.9,
+            "user_ratings_total": 1338,
+            "vicinity": "Jl. M.H. Thamrin No.kav 28-30 LT. Basement. Unit LB #25, Gondangdia, Jakarta",
             "location": {
-                "lat": -6.1933218,
-                "lng": 106.8289829
+                "lat": -6.1938545,
+                "lng": 106.8220282
             },
-            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJUcOVFQD1aS4RR_Ih9qUWUvw",
-            "directions_url": "https://www.google.com/maps/dir/?api=1&destination=place_id:ChIJUcOVFQD1aS4RR_Ih9qUWUvw"
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJUUfD-r31aS4RpjUzDCMEcW4",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1938545,106.8220282"
+        },
+        {
+            "place_id": "ChIJPw1c-Vj3aS4RkqRbPYZGw6E",
+            "name": "Furusato Izakaya",
+            "rating": 4.8,
+            "user_ratings_total": 3046,
+            "vicinity": "The Orient Hotel Jakarta, Jl. Jend. Sudirman No.36 Ground Floor, Bend. Hilir, Kota Jakarta Pusat",
+            "location": {
+                "lat": -6.215408099999999,
+                "lng": 106.8161436
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJPw1c-Vj3aS4RkqRbPYZGw6E",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.215408099999999,106.8161436"
+        },
+        {
+            "place_id": "ChIJ_eFcy4f1aS4RxLSWT5PhCAs",
+            "name": "Wabi-Sabi Restaurant",
+            "rating": 4.8,
+            "user_ratings_total": 445,
+            "vicinity": "MD Place, Jl. Setia Budi Selatan No.7 12th Floor, RT.5/RW.1, Kuningan, Karet Kuningan, Kota Jakarta Selatan",
+            "location": {
+                "lat": -6.2081681,
+                "lng": 106.8284888
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJ_eFcy4f1aS4RxLSWT5PhCAs",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2081681,106.8284888"
+        },
+        {
+            "place_id": "ChIJJXGInhf0aS4RlJxUs4K3yRM",
+            "name": "Midori Japanese Restaurant",
+            "rating": 4.7,
+            "user_ratings_total": 3678,
+            "vicinity": "14, Jl. K.H. Wahid Hasyim No.106, RT.14/RW.3, Kb. Sirih",
+            "location": {
+                "lat": -6.1867632,
+                "lng": 106.8265831
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJJXGInhf0aS4RlJxUs4K3yRM",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1867632,106.8265831"
+        },
+        {
+            "place_id": "ChIJV5beCRXzaS4R28MNPjTOr2E",
+            "name": "Sushi Hiro One Satrio",
+            "rating": 4.9,
+            "user_ratings_total": 3986,
+            "vicinity": "Jl. Prof. DR. Satrio, RT.5/RW.2, Kuningan, Kuningan Tim., Kota Jakarta Selatan",
+            "location": {
+                "lat": -6.225965,
+                "lng": 106.8260975
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJV5beCRXzaS4R28MNPjTOr2E",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.225965,106.8260975"
+        },
+        {
+            "place_id": "ChIJnV8F3NP1aS4RP07ZrL_A7sU",
+            "name": "GION Sushi Chillax Sudirman",
+            "rating": 4.8,
+            "user_ratings_total": 1452,
+            "vicinity": "Jl. Jenderal Sudirman No.Kav.23, RT.10/RW.1, Kuningan, Karet Kuningan, Kota Jakarta Selatan",
+            "location": {
+                "lat": -6.2114017,
+                "lng": 106.8210301
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJnV8F3NP1aS4RP07ZrL_A7sU",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.2114017,106.8210301"
+        },
+        {
+            "place_id": "ChIJv5uWAaj2aS4Rslv0wfYRRVY",
+            "name": "HOKKAIDO IZAKAYA",
+            "rating": 4.4,
+            "user_ratings_total": 1401,
+            "vicinity": "Pavilion Retail Arcade Lt. Dasar Unit D 01-12 Jl. K.H Mas Mansyur Kav.24, RT.12, RW.11, Karet Tengsin, Tanah Abang, RT.12/RW.11, Karet Tengsin, Kota Jakarta Pusat",
+            "location": {
+                "lat": -6.208413999999999,
+                "lng": 106.818007
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJv5uWAaj2aS4Rslv0wfYRRVY",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.208413999999999,106.818007"
+        },
+        {
+            "place_id": "ChIJd395EX7zaS4REiNqStlUnC8",
+            "name": "Sushi-Ya Kota Kasablanka",
+            "rating": 4.6,
+            "user_ratings_total": 1068,
+            "vicinity": "Kota Kasablanka, Jl. Raya Casablanca, RT.2/RW.12, Menteng Dalam, Kota Jakarta Selatan",
+            "location": {
+                "lat": -6.222307,
+                "lng": 106.8427626
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJd395EX7zaS4REiNqStlUnC8",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.222307,106.8427626"
+        },
+        {
+            "place_id": "ChIJFwqBHl_2aS4RsksVtySf8E8",
+            "name": "Sushi Hiro",
+            "rating": 4.8,
+            "user_ratings_total": 6535,
+            "vicinity": "Jalan Letjen S. Parman Kav. 28, UG - 105 Neo Soho Mall, RT.3/RW.5, Tj. Duren Sel., Jakarta",
+            "location": {
+                "lat": -6.174619,
+                "lng": 106.790217
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJFwqBHl_2aS4RsksVtySf8E8",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.174619,106.790217"
+        },
+        {
+            "place_id": "ChIJEUx-oe71aS4R-HFQaChrF-I",
+            "name": "Soten Japanese Charcoal Grill",
+            "rating": 4.9,
+            "user_ratings_total": 165,
+            "vicinity": "Jl. Cut Mutia No.4, RT.4/RW.9, Dukuh Atas, Kb. Sirih, Kota Jakarta Pusat",
+            "location": {
+                "lat": -6.1866705,
+                "lng": 106.8354421
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJEUx-oe71aS4R-HFQaChrF-I",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1866705,106.8354421"
+        },
+        {
+            "place_id": "ChIJWzUS5EkDai4RfZKSyL3JnvU",
+            "name": "OKINAWA SUSHI CENTRAL PARK",
+            "rating": 5,
+            "user_ratings_total": 9391,
+            "vicinity": "Central Park Mall, No.Kav. 28, Letjen S. Parman, South Tanjung Duren, West Jakarta City",
+            "location": {
+                "lat": -6.1780596,
+                "lng": 106.7909298
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJWzUS5EkDai4RfZKSyL3JnvU",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.1780596,106.7909298"
+        },
+        {
+            "place_id": "ChIJQWScPTnzaS4RnD24nGmZFt4",
+            "name": "Gion The Sushi Bar Lotte",
+            "rating": 4.8,
+            "user_ratings_total": 1307,
+            "vicinity": "3F, Lotte shopping avenue, RT.18/RW.4, Kuningan, Karet Kuningan, South Jakarta City",
+            "location": {
+                "lat": -6.224465599999999,
+                "lng": 106.8228743
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJQWScPTnzaS4RnD24nGmZFt4",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.224465599999999,106.8228743"
+        },
+        {
+            "place_id": "ChIJeRPCN1DxaS4RYT-tnnojNsk",
+            "name": "Fukuro Dining & Sake Bar",
+            "rating": 4.5,
+            "user_ratings_total": 361,
+            "vicinity": "KawaJl. Jend. Sudirman Kav. 52-53, Lot 14 Senayan Kebayoran Baru Kawasan Niaga SCBD Sudirman, RT.5/RW.3, Senayan",
+            "location": {
+                "lat": -6.226063,
+                "lng": 106.8075215
+            },
+            "maps_url": "https://www.google.com/maps/search/?api=1&query=place_id:ChIJeRPCN1DxaS4RYT-tnnojNsk",
+            "directions_url": "https://www.google.com/maps/dir/-6.2,106.816666/-6.226063,106.8075215"
         }
     ]
 }
@@ -394,7 +589,7 @@ curl "http://localhost:3001/api/directions?origin=-6.2,106.8&destination_place_i
 **Response:**
 ```json
 {
-    "directions_url": "https://www.google.com/maps/dir/?api=1&origin=-6.2,106.8&destination=place_id:ChIJN1t_tDeuEmsRUsoyG83frY4"
+    "directions_url": "https://www.google.com/maps/dir/-6.2,106.8/-33.866489,151.1958561"
 }
 ```
 
